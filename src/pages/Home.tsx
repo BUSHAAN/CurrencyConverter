@@ -1,17 +1,16 @@
-import { Button, CircularProgress, Typography } from "@mui/material";
+import { CircularProgress, Typography } from "@mui/material";
 import Box from "@mui/material/Box";
 import { useEffect, useState } from "react";
 import ArrowsExchanged from "../assets/images/arrows-exchange.png";
 import ButtonAppBar from "../components/ButtonAppBar";
 import Dropdown from "../components/Dropdown";
 import InputTextField from "../components/InputTextField";
-import rates from "../constants/rates";
 import convertCurrency, { ConversionResult } from "../services/convertCurrency";
 import currencyStore from "../services/currencyStore";
-import currencies from "../constants/symbols";
 import getSymbols from "../services/getSymbols";
 import getRates from "../services/getRates";
-import ButtonImage from "../assets/images/ConvertButtonImage.png";
+import Logo from "../assets/images/Logo.png";
+
 
 const Home = () => {
   const { amount, toCurrency, fromCurrency, setToCurrency, setFromCurrency } =
@@ -23,10 +22,16 @@ const Home = () => {
   });
   const [currencies, setCurrencies] = useState();
   const [rates, setRates] = useState();
-  const [date, setDate] = useState(1733987643);
+  const [date, setDate] = useState<string>();
   const [loading, setLoading] = useState<boolean>(false);
-  const dateValue = new Date(date * 1000);
-  console.log(dateValue.toISOString());
+
+  const getDate = (date: number): string => {
+    const dateValue = new Date(date);
+
+    const isoString = dateValue.toISOString();
+    const humanReadable = new Date(isoString).toLocaleString();
+    return humanReadable;
+  };
   const getCurrencyName = (label: string | null): string | null => {
     if (label && currencies) {
       return currencies[label];
@@ -41,7 +46,7 @@ const Home = () => {
   };
 
   useEffect(() => {
-    if (fromCurrency && toCurrency && amount != 0 && rates) {
+    if (fromCurrency && toCurrency && rates) {
       const result = convertCurrency(amount, fromCurrency, toCurrency, rates);
       setResult(result);
     } else {
@@ -56,13 +61,14 @@ const Home = () => {
     };
     const getExchangeRates = async () => {
       const response = await getRates();
+      const dateString = getDate(response.timestamp);
       setRates(response.rates);
-      setDate(response.date);
+      setDate(dateString);
     };
     const fetchData = async () => {
       setLoading(true);
-      //await getCurrencies();
-      //await getExchangeRates();
+      await getCurrencies();
+      await getExchangeRates();
       setLoading(false);
     };
     fetchData();
@@ -113,6 +119,7 @@ const Home = () => {
               </Box>
             ) : (
               <>
+              <Box><img src={Logo} alt="" /></Box>
                 <InputTextField />
                 <Box
                   sx={{
@@ -136,7 +143,6 @@ const Home = () => {
                     }}
                   />
                   <Box
-                    onClick={() => {}}
                     sx={{
                       cursor: "pointer",
                       borderRadius: "10px",
@@ -172,15 +178,15 @@ const Home = () => {
                   />
                 </Box>
                 <Typography
-              sx={{
-                marginTop: "10px",
-                fontSize: "16px",
-                color: "primary.contrastText",
-              }}
-            >
-              {" "}
-              Last updated{" "}
-            </Typography>
+                  sx={{
+                    marginTop: "10px",
+                    fontSize: "14px",
+                    color: "primary.contrastText",
+                  }}
+                >
+                  {" "}
+                  Last updated {date}
+                </Typography>
                 {/* <Button
                   onClick={() => {
                     if (fromCurrency && toCurrency && amount != 0 && rates) {
@@ -325,7 +331,7 @@ const Home = () => {
                         fontSize: { md: "14px", lg: "16px" },
                       }}
                     >
-                      {`${amount} ${fromCurrency}  = ${result?.fromToRate.toFixed(
+                      {`${result?.fromToRate==0? '0': "1"} ${fromCurrency}  = ${result?.fromToRate.toFixed(
                         4
                       )} ${toCurrency}`}
                     </Typography>
@@ -335,7 +341,7 @@ const Home = () => {
                         fontSize: { md: "14px", lg: "16px" },
                       }}
                     >
-                      {`${amount} ${toCurrency} = ${result?.toFromRate.toFixed(
+                      {`${result?.toFromRate==0? '0': "1"} ${toCurrency} = ${result?.toFromRate.toFixed(
                         4
                       )} ${fromCurrency}`}
                     </Typography>

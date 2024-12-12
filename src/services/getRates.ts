@@ -10,14 +10,12 @@ const getRates = async () => {
                 },
             },
         );
-        //console.log(response);
+        //console.log(response.data);
         return response.data;
     }catch(error){
         console.error("Error fetching symbols", error);
         alert("Failed to fetch currency symbols. Please try again later.");
-        alert(`Failed to fetch currency symbols. 
-               Error: ${error.response ? error.response.data.error : error.message}.
-               Please check your internet connection or try again later.`);
+        alert(`Failed to fetch currency symbols. Error-code: ${error.code} Error message: ${error.message}.`);
     }
 }
 
