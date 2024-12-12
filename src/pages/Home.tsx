@@ -56,8 +56,8 @@ const Home = () => {
     };
     const fetchData = async () => {
       setLoading(true);
-      // await getCurrencies();
-      // await getExchangeRates();
+       await getCurrencies();
+       await getExchangeRates();
       setLoading(false);
     };
     fetchData();
