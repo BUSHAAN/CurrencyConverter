@@ -10,7 +10,6 @@ const getSymbols = async () => {
         },
       }
     );
-    //console.log(response.data.symbols);
     return response.data.symbols;
   } catch (error) {
     console.error("Error fetching symbols", error);

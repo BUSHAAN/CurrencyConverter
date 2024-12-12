@@ -11,7 +11,6 @@ import getSymbols from "../services/getSymbols";
 import getRates from "../services/getRates";
 import Logo from "../assets/images/Logo.png";
 
-
 const Home = () => {
   const { amount, toCurrency, fromCurrency, setToCurrency, setFromCurrency } =
     currencyStore();
@@ -22,16 +21,8 @@ const Home = () => {
   });
   const [currencies, setCurrencies] = useState();
   const [rates, setRates] = useState();
-  const [date, setDate] = useState<string>();
   const [loading, setLoading] = useState<boolean>(false);
 
-  const getDate = (date: number): string => {
-    const dateValue = new Date(date);
-
-    const isoString = dateValue.toISOString();
-    const humanReadable = new Date(isoString).toLocaleString();
-    return humanReadable;
-  };
   const getCurrencyName = (label: string | null): string | null => {
     if (label && currencies) {
       return currencies[label];
@@ -61,14 +52,12 @@ const Home = () => {
     };
     const getExchangeRates = async () => {
       const response = await getRates();
-      const dateString = getDate(response.timestamp);
       setRates(response.rates);
-      setDate(dateString);
     };
     const fetchData = async () => {
       setLoading(true);
-      await getCurrencies();
-      await getExchangeRates();
+      // await getCurrencies();
+      // await getExchangeRates();
       setLoading(false);
     };
     fetchData();
@@ -119,7 +108,6 @@ const Home = () => {
               </Box>
             ) : (
               <>
-              <Box><img src={Logo} alt="" /></Box>
                 <InputTextField />
                 <Box
                   sx={{
@@ -177,58 +165,12 @@ const Home = () => {
                     }}
                   />
                 </Box>
-                <Typography
-                  sx={{
-                    marginTop: "10px",
-                    fontSize: "14px",
-                    color: "primary.contrastText",
-                  }}
-                >
-                  {" "}
-                  Last updated {date}
-                </Typography>
-                {/* <Button
-                  onClick={() => {
-                    if (fromCurrency && toCurrency && amount != 0 && rates) {
-                      const result = convertCurrency(
-                        amount,
-                        fromCurrency,
-                        toCurrency,
-                        rates
-                      );
-                      setResult(result);
-                    } else {
-                      console.error("Please select currencies");
-                    }
-                  }}
-                  sx={{
-                    width: "175px",
-                    height: "50px",
-                    backgroundColor: "secondary.main",
-                    display: "flex",
-                    borderRadius: "10px",
-                    alignItems: "center",
-                    gap: "15px",
-                    mt: "10px",
-                  }}
-                >
-                  <Typography
-                    color="primary.contrastText"
-                    variant="body1"
-                    sx={{
-                      color: "white",
-                      textTransform: "capitalize",
-                      fontSize: "20px",
-                      fontWeight: "600",
-                    }}
-                  >
-                    Convert
-                  </Typography>
-                  <img src={ButtonImage} />
-                </Button> */}
+                <Box>
+                  <img src={Logo} alt="" />
+                </Box>
                 <Box
                   sx={{
-                    marginTop: "30px",
+                    marginTop: "20px",
                     width: "80%",
                     height: { xs: "60px", sm: "60px", md: "120px", lg: "80px" },
                     border: "1px solid",
@@ -331,7 +273,9 @@ const Home = () => {
                         fontSize: { md: "14px", lg: "16px" },
                       }}
                     >
-                      {`${result?.fromToRate==0? '0': "1"} ${fromCurrency}  = ${result?.fromToRate.toFixed(
+                      {`${
+                        result?.fromToRate == 0 ? "0" : "1"
+                      } ${fromCurrency}  = ${result?.fromToRate.toFixed(
                         4
                       )} ${toCurrency}`}
                     </Typography>
@@ -341,7 +285,9 @@ const Home = () => {
                         fontSize: { md: "14px", lg: "16px" },
                       }}
                     >
-                      {`${result?.toFromRate==0? '0': "1"} ${toCurrency} = ${result?.toFromRate.toFixed(
+                      {`${
+                        result?.toFromRate == 0 ? "0" : "1"
+                      } ${toCurrency} = ${result?.toFromRate.toFixed(
                         4
                       )} ${fromCurrency}`}
                     </Typography>

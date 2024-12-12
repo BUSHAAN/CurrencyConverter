@@ -1,8 +1,8 @@
 import TextField from "@mui/material/TextField";
-import { textFieldStyle } from "../assets/commonStyles";
 import Typography from "@mui/material/Typography";
-import currencyStore from "../services/currencyStore";
 import { useState } from "react";
+import { textFieldStyle } from "../assets/commonStyles";
+import currencyStore from "../services/currencyStore";
 
 const MAX_VALUE = 100000000;
 
@@ -34,7 +34,7 @@ const InputTextField = () => {
         onChange={handleInputChange}
         sx={{
           ...textFieldStyle(),
-          mt: "30px",
+
           width: "250px",
         }}
         error={!!error}

@@ -10,7 +10,6 @@ const getRates = async () => {
                 },
             },
         );
-        //console.log(response.data);
         return response.data;
     }catch(error){
         console.error("Error fetching symbols", error);
