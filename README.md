@@ -1,5 +1,13 @@
 # Currency Master
 
+<p>
+  <a href="https://reactjs.org/"><img src="https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB" alt="React"/></a>
+  <a href="https://axios-http.com/"><img src="https://img.shields.io/badge/Axios-5A29E4?style=for-the-badge&logo=axios&logoColor=white" alt="Axios"/></a>
+  <a href="https://mui.com/"><img src="https://img.shields.io/badge/Material_UI-0081CB?style=for-the-badge&logo=mui&logoColor=white" alt="Material UI"/></a>
+  <a href="https://github.com/pmndrs/zustand"><img src="https://img.shields.io/badge/Zustand-000000?style=for-the-badge&logo=github&logoColor=white" alt="Zustand"/></a>
+  <a href="https://exchangeratesapi.io/"><img src="https://img.shields.io/badge/API-exchangeratesapi.io-FF6F00?style=for-the-badge" alt="ExchangeRatesAPI"/></a>
+</p>
+
 A simple currency converter built with React that fetches live exchange rates from [exchangeratesapi.io](https://exchangeratesapi.io).
 
 ---
@@ -16,7 +24,6 @@ A simple currency converter built with React that fetches live exchange rates fr
 - [Axios](https://axios-http.com/) for API calls  
 - [Zustand](https://github.com/pmndrs/zustand) for state management  
 - [Material UI](https://mui.com/) + Emotion for styling  
-- [Poppins](https://fonts.google.com/specimen/Poppins) font
 
 ---
 
