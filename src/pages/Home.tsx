@@ -7,9 +7,9 @@ import Dropdown from "../components/Dropdown";
 import InputTextField from "../components/InputTextField";
 import convertCurrency, { ConversionResult } from "../services/convertCurrency";
 import currencyStore from "../services/currencyStore";
-import getSymbols from "../services/getSymbols";
 import getRates from "../services/getRates";
 import Logo from "../assets/images/Logo.png";
+import currencies from "../constants/symbols";
 
 const Home = () => {
   const { amount, toCurrency, fromCurrency, setToCurrency, setFromCurrency } =
@@ -19,13 +19,12 @@ const Home = () => {
     toFromRate: 0,
     convertedAmount: 0,
   });
-  const [currencies, setCurrencies] = useState();
   const [rates, setRates] = useState();
   const [loading, setLoading] = useState<boolean>(false);
 
   const getCurrencyName = (label: string | null): string | null => {
     if (label && currencies) {
-      return currencies[label];
+      return currencies[label as keyof typeof currencies];
     }
     return null;
   };
@@ -43,20 +42,17 @@ const Home = () => {
     } else {
       console.log("Please select currencies");
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [fromCurrency, toCurrency, amount]);
 
   useEffect(() => {
-    const getCurrencies = async () => {
-      const response = await getSymbols();
-      setCurrencies(response);
-    };
+
     const getExchangeRates = async () => {
       const response = await getRates();
       setRates(response.rates);
     };
     const fetchData = async () => {
       setLoading(true);
-       await getCurrencies();
        await getExchangeRates();
       setLoading(false);
     };

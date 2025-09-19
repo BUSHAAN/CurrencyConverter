@@ -14,7 +14,7 @@ const getSymbols = async () => {
   } catch (error) {
     console.error("Error fetching symbols", error);
     alert("Failed to fetch currency symbols. Please try again later.");
-    alert(`Failed to fetch currency symbols. Error-code: ${error.code} Error message: ${error.message}.`);
+    // alert(`Failed to fetch currency symbols. Error-code: ${error.code} Error message: ${error.message}.`);
   }
 };
 
