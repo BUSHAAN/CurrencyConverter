@@ -1,7 +1,6 @@
 import { Autocomplete, Box, TextField, Typography } from "@mui/material";
 import  currencies  from "../constants/symbols";
 import { useEffect, useState } from "react";
-import currencyStore from "../services/currencyStore";
 
 interface DropdownProps {
   heading: string;
@@ -30,7 +29,7 @@ const Dropdown = ({
   const symbolsMap: Currency[] = mapCurrencies(currencies);
 
   useEffect(() => {
-    setValue(swappedValue);
+    setValue(swappedValue ?? null);
   }, [swappedValue]);
 
   return (
@@ -69,12 +68,12 @@ const Dropdown = ({
           }}
           renderInput={(params) => <TextField {...params} />}
           value={value}
-          onChange={(event, newValue: Currency | null) => {
+          onChange={(_, newValue: Currency | null) => {
             setValue(newValue);
             onCurrencySelect(newValue?.label || null); // Send the currency code (label) to parent
           }}
           inputValue={inputValue}
-          onInputChange={(event, newInputValue) => {
+          onInputChange={(_, newInputValue) => {
             setInputValue(newInputValue);
           }}
         />

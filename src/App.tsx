@@ -2,7 +2,7 @@ import { ThemeProvider } from "@emotion/react";
 import "./App.css";
 import { darkTheme, lightTheme } from "./assets/theme";
 import Home from "./pages/Home";
-import themeStore from "./services/ThemeStore";
+import themeStore from "./services/themeStore";
 
 function App() {
   const { isDarkMode } = themeStore();

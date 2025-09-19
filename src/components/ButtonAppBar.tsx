@@ -5,7 +5,8 @@ import Box from "@mui/material/Box";
 import IconButton from "@mui/material/IconButton";
 import Toolbar from "@mui/material/Toolbar";
 import Logo from "../assets/images/Logo.png";
-import themeStore from "../services/ThemeStore";
+import themeStore from "../services/themeStore";
+
 
 export default function ButtonAppBar() {
   const { isDarkMode, setIsDarkMode } = themeStore();

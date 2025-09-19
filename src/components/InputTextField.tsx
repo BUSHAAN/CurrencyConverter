@@ -9,7 +9,7 @@ const MAX_VALUE = 100000000;
 const InputTextField = () => {
   const { amount, setAmount } = currencyStore();
   const [error, setError] = useState("");
-  const handleInputChange = (e) => {
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const input = e.target.value;
 
     if (/^\d*\.?\d*$/.test(input)) {
